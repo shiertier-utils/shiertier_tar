@@ -5,6 +5,7 @@ English | [中文](https://github.com/shiertier-utils/shiertier_tar/blob/main/RE
 ## Introduction
 
 `shiertier_tar` is a Python library designed to simplify the process of working with tar archives. It provides a set of utility functions to pack directories into tar files, unpack tar files, create and manage tar file indexes, and perform various operations on tar files. This library is particularly useful for managing large datasets or archives in a structured manner.
+This project is a simplified version of [hfutils].
 
 ## Installation
 
