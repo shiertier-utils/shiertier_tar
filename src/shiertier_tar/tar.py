@@ -31,10 +31,11 @@ def pack_directory_to_tarfile(src_directory: str,
     with TarFile.open(archive_file, "w") as tar:
         for root, dirs, files in os.walk(src_directory):
             for file in files:
-                pattern_list = [p.strip() for p in pattern.split(";") if p.strip()]
-                if pattern_list:
-                    if not any(file.endswith(p) for p in pattern_list):
-                        continue
+                if pattern:
+                    pattern_list = [p.strip() for p in pattern.split(";") if p.strip()]
+                    if pattern_list:
+                        if any(file.endswith(p) for p in pattern_list):
+                            continue
                 file_path = os.path.join(root, file)
                 tar.add(file_path, arcname=os.path.relpath(file_path, src_directory))
 
