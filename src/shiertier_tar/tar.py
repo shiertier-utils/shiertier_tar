@@ -48,46 +48,60 @@ def unpack_tarfile(archive_file: str,
     return archive_unpack(archive_file, directory, silent)
 
 def create_index_from_tarfile(archive_file: str, 
-                              directory: str = None, 
+                              index_file_path: str = None, 
                               silent: bool = False):
-    return tar_create_index(archive_file, directory, silent)
+    if index_file_path is None:
+        index_file_path = archive_file.replace(".tar", ".json")
+    return tar_create_index(archive_file, index_file_path, silent)
 
 def create_tarfile_index_for_directory(src_directory: str, 
                                        archive_file: str | None = None, 
-                                       index_directory: str | None = None, 
+                                       index_file_path: str | None = None, 
                                        pattern: str | None = None, 
                                        silent: bool = False):
     pack_directory_to_tarfile(src_directory, archive_file, pattern, silent=silent)
-    create_index_from_tarfile(archive_file, index_directory, silent=silent)
+    create_index_from_tarfile(archive_file, index_file_path, silent=silent)
 
 def get_file_size_in_tarfile(archive_file: str, 
                             file_in_archive: str, 
-                            idx_file: str | None = None) -> int:
-    return tar_file_size(archive_file, file_in_archive, idx_file)
+                            idx_file_path: str | None = None) -> int:
+    if idx_file_path is None:
+        idx_file_path = archive_file.replace(".tar", ".json")
+    return tar_file_size(archive_file, file_in_archive, idx_file_path)
 
 def get_file_info_in_tarfile(archive_file: str, 
                             file_in_archive: str, 
-                            idx_file: str | None = None) -> dict:
-    return tar_file_info(archive_file, file_in_archive, idx_file)
+                            idx_file_path: str | None = None) -> dict:
+    if idx_file_path is None:
+        idx_file_path = archive_file.replace(".tar", ".json")
+    return tar_file_info(archive_file, file_in_archive, idx_file_path)
 
 def get_tarfile_index(archive_file: str, 
-                      idx_file: str | None = None) -> dict:
-    return tar_get_index(archive_file, idx_file)
+                      idx_file_path: str | None = None) -> dict:
+    if idx_file_path is None:
+        idx_file_path = archive_file.replace(".tar", ".json")
+    return tar_get_index(archive_file, idx_file_path)
 
 def export_file_from_tarfile(archive_file: str, 
                             file_in_archive: str, 
                             local_file: str, 
-                            idx_file: str | None = None, 
+                            idx_file_path: str | None = None, 
                             chunk_size: int = 1048576, 
                             force_download: bool = False):
-    return tar_file_download(archive_file, file_in_archive, local_file, idx_file, chunk_size, force_download)
+    if idx_file_path is None:
+        idx_file_path = archive_file.replace(".tar", ".json")
+    return tar_file_download(archive_file, file_in_archive, local_file, idx_file_path, chunk_size, force_download)
 
 
 def list_files_in_tarfile(archive_file: str, 
-                         idx_file: str | None = None) -> List[str]:
-    return tar_list_files(archive_file, idx_file)
+                         idx_file_path: str | None = None) -> List[str]:
+    if idx_file_path is None:
+        idx_file_path = archive_file.replace(".tar", ".json")
+    return tar_list_files(archive_file, idx_file_path)
 
 def is_file_in_tarfile(archive_file: str, 
                        file_in_archive: str, 
-                       idx_file: str | None = None) -> bool:
-    return tar_file_exists(archive_file, file_in_archive, idx_file)
+                       idx_file_path: str | None = None) -> bool:
+    if idx_file_path is None:
+        idx_file_path = archive_file.replace(".tar", ".json")
+    return tar_file_exists(archive_file, file_in_archive, idx_file_path)
